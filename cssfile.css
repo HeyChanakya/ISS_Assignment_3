@@ -1,0 +1,80 @@
+header{
+    text-align:center;
+    background-color:#2C3E50;
+    color:#ECF0F1;
+    font-size:20px;
+}
+
+body{
+    background-color:#3fb8e0;
+}
+
+#about{
+    display:flex;
+    justify-content:space-between;  
+}
+
+#info{
+    display:flex;
+    justify-content:space-between;  
+}
+
+#info-text{
+    flex:1;
+}
+
+#education{
+    font-size:30px;
+    color:#320245;
+}
+
+#achievements{
+    font-size:30px;
+    color:#320245;
+}
+
+#skills{
+    font-size:30px;
+    color:#320245;
+}
+
+#profile{
+    font-size:30px;
+    color:#320245;
+}
+
+#profile-pic{
+    width:250px;    
+    height:250px;
+    border-radius:8px;
+}
+
+#about-me{
+    margin-top:0px;
+    font-size:20px;
+    flex:1;
+    color:#16222f;
+    padding-right:40px;
+}
+
+#vijayawada-pic-1{
+    width:400px;
+    height:300px;
+    padding-left:20px;
+}
+
+#vijayawada-pic-2{
+    width:400px;
+    height:300px;
+    padding-left:20px;
+}
+
+#cv{
+    font-size:30px;
+}
+
+#kennedy{
+    width:800px;
+    height:300px;
+    padding-top:20px;
+}
