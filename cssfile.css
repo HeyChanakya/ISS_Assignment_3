@@ -1,80 +1,83 @@
-header{
-    text-align:center;
-    background-color:#2C3E50;
-    color:#ECF0F1;
-    font-size:20px;
+header {
+    text-align: center;
+    background-color: #2C3E50;
+    color: #ECF0F1;
+    font-size: 20px;
 }
 
-body{
-    background-color:#3fb8e0;
+body {
+    background-color: #3fb8e0;
+    font-family: Arial, sans-serif;
 }
 
-#about{
-    display:flex;
-    justify-content:space-between;  
+#about {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
 }
 
-#info{
-    display:flex;
-    justify-content:space-between;  
+#info {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
 }
 
-#info-text{
-    flex:1;
+#info-text {
+    flex: 1;
 }
 
-#education{
-    font-size:30px;
-    color:#320245;
+#education,
+#achievements,
+#skills,
+#profile {
+    font-size: 30px;
+    color: #320245;
 }
 
-#achievements{
-    font-size:30px;
-    color:#320245;
+#profile-pic {
+    width: 250px;
+    height: 250px;
+    border-radius: 8px;
 }
 
-#skills{
-    font-size:30px;
-    color:#320245;
+#about-me {
+    font-size: 20px;
+    flex: 1;
+    color: #16222f;
+    padding-right: 40px;
 }
 
-#profile{
-    font-size:30px;
-    color:#320245;
+#vijayawada-pic-1,
+#vijayawada-pic-2 {
+    width: 400px;
+    height: 300px;
+    padding-left: 20px;
 }
 
-#profile-pic{
-    width:250px;    
-    height:250px;
-    border-radius:8px;
+#cv {
+    font-size: 30px;
+    display: block;
+    margin: 30px 20px;
 }
 
-#about-me{
-    margin-top:0px;
-    font-size:20px;
-    flex:1;
-    color:#16222f;
-    padding-right:40px;
+#kennedy {
+    width: 800px;
+    height: 300px;
+    padding-top: 20px;
 }
 
-#vijayawada-pic-1{
-    width:400px;
-    height:300px;
-    padding-left:20px;
+textarea {
+    margin: 20px;
+    font-size: 16px;
 }
 
-#vijayawada-pic-2{
-    width:400px;
-    height:300px;
-    padding-left:20px;
+button {
+    font-size: 18px;
+    margin: 10px 20px;
 }
 
-#cv{
-    font-size:30px;
-}
-
-#kennedy{
-    width:800px;
-    height:300px;
-    padding-top:20px;
+pre {
+    background-color: #ecf0f1;
+    margin: 10px 20px;
+    padding: 10px;
 }

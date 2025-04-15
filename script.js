@@ -1,99 +1,49 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log(`${new Date().toISOString()}, view, page`);
-
-    document.addEventListener('click', (event) => {
-        const target = event.target;
-        let objectType = 'unknown';
-
-        if (target.tagName === 'IMG') {
-            objectType = 'image';
-        } else if (target.tagName === 'A') {
-            objectType = 'link';
-        } else if (target.tagName === 'BUTTON') {
-            objectType = 'button';
-        } else if (target.tagName === 'P' || target.tagName.match(/^H[1-6]$/)) {
-            objectType = 'text';
-        } else if (target.tagName === 'LI') {
-            objectType = 'list-item';
-        }
-
-        console.log(`${new Date().toISOString()}, click, ${objectType}`);
-    });
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Page loaded at", new Date().toISOString());
+    logEvent("view", document.body);
 });
 
+document.addEventListener("click", event => {
+    logEvent("click", event.target);
+});
+
+function logEvent(type, target) {
+    const timestamp = new Date().toISOString();
+    let objectType = "other";
+
+    if (target.tagName === "IMG") objectType = "image";
+    else if (target.tagName === "P" || target.tagName === "SPAN" || target.tagName.startsWith("H")) objectType = "text";
+    else if (target.tagName === "A") objectType = "hyperlink";
+    else if (target.tagName === "TEXTAREA") objectType = "text-area";
+    else if (target.tagName === "BUTTON") objectType = "button";
+    else if (target.tagName === "UL" || target.tagName === "LI") objectType = "list";
+
+    console.log(`${timestamp}, ${type}, ${objectType}`);
+}
+
 function analyzeText() {
-    const text = document.getElementById('textInput').value;
-    const outputDiv = document.getElementById('analysisOutput');
-    let output = '';
+    const text = document.getElementById("text-input").value;
+    const letters = (text.match(/[a-zA-Z]/g) || []).length;
+    const words = (text.match(/\b\w+\b/g) || []).length;
+    const spaces = (text.match(/ /g) || []).length;
+    const newlines = (text.match(/\n/g) || []).length;
+    const specials = (text.match(/[^a-zA-Z0-9\s]/g) || []).length;
 
-    const letters = text.match(/[a-zA-Z]/g)?.length || 0;
-    const words = text.split(/\s+/).filter(word => word).length;
-    const spaces = text.match(/\s/g)?.length || 0;
-    const newlines = text.match(/\n/g)?.length || 0;
-    const specialSymbols = text.match(/[^a-zA-Z0-9\s]/g)?.length || 0;
+    const pronouns = ["i", "we", "you", "he", "she", "they", "it", "me", "him", "her", "us", "them"];
+    const prepositions = ["in", "on", "at", "by", "with", "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "for", "over", "under"];
+    const articles = ["a", "an"];
 
-    output += `
-        <h3>Text Statistics</h3>
-        <p>Letters: ${letters}</p>
-        <p>Words: ${words}</p>
-        <p>Spaces: ${spaces}</p>
-        <p>Newlines: ${newlines}</p>
-        <p>Special Symbols: ${specialSymbols}</p>
-    `;
-
-    const pronouns = ['i', 'me', 'you', 'he', 'him', 'she', 'her', 'it', 'we', 'us', 'they', 'them'];
+    const tokens = text.toLowerCase().match(/\b\w+\b/g) || [];
     const pronounCounts = {};
-    pronouns.forEach(pronoun => pronounCounts[pronoun] = 0);
-
-    text.toLowerCase().split(/\s+/).forEach(word => {
-        if (pronouns.includes(word)) {
-            pronounCounts[word]++;
-        }
-    });
-
-    output += '<h3>Pronouns Count</h3><ul>';
-    for (const [pronoun, count] of Object.entries(pronounCounts)) {
-        if (count > 0) {
-            output += `<li>${pronoun}: ${count}</li>`;
-        }
-    }
-    output += '</ul>';
-
-    const prepositions = ['in', 'on', 'at', 'by', 'for', 'with', 'to', 'from', 'of'];
-    const prepositionCounts = {};
-    prepositions.forEach(prep => prepositionCounts[prep] = 0);
-
-    text.toLowerCase().split(/\s+/).forEach(word => {
-        if (prepositions.includes(word)) {
-            prepositionCounts[word]++;
-        }
-    });
-
-    output += '<h3>Prepositions Count</h3><ul>';
-    for (const [prep, count] of Object.entries(prepositionCounts)) {
-        if (count > 0) {
-            output += `<li>${prep}: ${count}</li>`;
-        }
-    }
-    output += '</ul>';
-
-    const articles = ['a', 'an'];
+    const prepCounts = {};
     const articleCounts = {};
-    articles.forEach(article => articleCounts[article] = 0);
 
-    text.toLowerCase().split(/\s+/).forEach(word => {
-        if (articles.includes(word)) {
-            articleCounts[word]++;
-        }
-    });
-
-    output += '<h3>Indefinite Articles Count</h3><ul>';
-    for (const [article, count] of Object.entries(articleCounts)) {
-        if (count > 0) {
-            output += `<li>${article}: ${count}</li>`;
-        }
+    for (const word of tokens) {
+        if (pronouns.includes(word)) pronounCounts[word] = (pronounCounts[word] || 0) + 1;
+        if (prepositions.includes(word)) prepCounts[word] = (prepCounts[word] || 0) + 1;
+        if (articles.includes(word)) articleCounts[word] = (articleCounts[word] || 0) + 1;
     }
-    output += '</ul>';
 
-    outputDiv.innerHTML = output;
+    document.getElementById("text-output").textContent =
+        `Letters: ${letters}\nWords: ${words}\nSpaces: ${spaces}\nNewlines: ${newlines}\nSpecial Characters: ${specials}\n\nPronouns:\n${JSON.stringify(pronounCounts, null, 2)}\n\nPrepositions:\n${JSON.stringify(prepCounts, null, 2)}\n\nArticles:\n${JSON.stringify(articleCounts, null, 2)}`;
 }
